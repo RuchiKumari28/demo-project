@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewData["Title"] = "Insert";
+}
+
+<h2>Insert</h2>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+
+
+<div class=" row">
+    <div class="col-md-4">
+        <b>Enter SubCategory Name:</b><br />
+        <input type="text" id="name" placeholder="enter name" />
+    </div>
+</div>
+
+<br />
+
+
+<div class=" row">
+    <div class="col-md-4">
+        <b>Enter your Name:</b><br />
+        <input type="text" id="create" placeholder="Name" />
+    </div>
+</div>
+
+<br />
+
+<select id="ddl_1" onchange="getSelectValue()"><option value="0">--Select Category--</option></select>
+<br />
+<br />
+
+
+<input type="button" id="ins" value="Insert" />
+
+
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#ins").click(function () {
+
+
+
+            var proObj = {
+
+
+                subCatName: $('#name').val(),
+
+
+
+                catID: $('#ddl_1').val(),
+
+
+                createdBy: $('#create').val()
+
+
+
+
+            };
+
+            $.ajax({
+
+                url: 'http://localhost:9369/api/SubCategory',
+
+                data: JSON.stringify(proObj),
+
+                type: "POST",
+
+                contentType: "application/json;charset=utf-8",
+
+                dataType: "json",
+
+                success: function (result) {
+
+                    alert("Inserted");
+
+                },
+
+                error: function (errormessage) {
+
+                    alert(errormessage.responseText);
+
+                }
+
+            });
+
+        });
+
+    });
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:1309/api/Category',
+            dataType: 'json',
+            success: function (data) {
+
+                $.each(data, function (index, value) {
+                    $("#ddl_1").append($("<option></option>").val(value.catId).html(value.catName))
+                });
+
+                //var selectedValue = document.getElementById("ddl_1").value;
+                //console.log(selectedValue);
+            }
+        });
+    });
+</script>

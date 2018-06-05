@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Display";
+}
+
+<h2>Display</h2>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        //$("#btn").click(function () {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:9369/api/SubCategory',
+            dataType: 'json',
+            success: function (data) {
+                //alert("Data found");
+                $.each(data, function (index, value) {
+
+                    var d = value.subCatId;
+
+                    var f = value.subCatName;
+                    var g = value.catId;
+                    var h = value.createdBy;
+                    var i = value.createdDate;
+                    var j = value.updatedBy;
+                    var k = value.updatedDate;
+
+
+                    $("#ul1").append("<tr><td>" + d + "</td>" + "<td>" + f + "<td>" + g + "</td>" + "<td>" + h + "</td>" + "<td>" + i + "</td>" + "<td>" + j + "<td>" + k + "</td ></tr > ");
+
+
+                });
+            }
+        });
+        //});
+    });
+</script>
+
+
+@*<input type="button" id="btn" value="Display" />*@
+<div class="container">
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+
+                    <th>Sub-Category Id</th>
+                    <th>Sub-Category Name</th>
+                    <th>Category Id</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                    <th>Updated By</th>
+                    <th>Updated Date</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody id="ul1" class="table-active"></tbody>
+        </table>
+    </div>
+</div>
+
+
